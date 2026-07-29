@@ -8,15 +8,16 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
-            padding: 40px;
+            padding: 40px 20px;
             display: flex;
             justify-content: center;
+            color: #16325c;
         }
         .container {
             background-color: white;
             padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             width: 100%;
             max-width: 500px;
         }
@@ -27,36 +28,52 @@
             font-weight: bold;
             display: block;
             margin-bottom: 5px;
+            font-size: 14px;
         }
-        input[type="text"], select {
+        input[type="text"], input[type="date"], input[type="number"], select {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
+            font-size: 14px;
         }
         input[type="submit"] {
             background-color: #0070d2;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             width: 100%;
             font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background-color 0.3s;
         }
         input[type="submit"]:hover {
             background-color: #005fb2;
         }
+        
         /* Estilo da tela de agradecimento (escondida por padrão) */
         #tela_agradecimento {
             display: none;
             text-align: center;
         }
+        #tela_agradecimento h2 {
+            color: #04844b;
+            margin-bottom: 10px;
+        }
+        #tela_agradecimento p {
+            color: #54698d;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
         #tela_agradecimento img {
-            max-width: 100%;
+            width: 100%;
+            max-width: 380px;
             border-radius: 8px;
-            margin-top: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
     </style>
 </head>
@@ -65,7 +82,7 @@
     <div class="container">
         <!-- O formulário -->
         <div id="area_formulario">
-            <h2>Planeje sua Viagem</h2>
+            <h2 style="text-align: center; margin-bottom: 20px;">Planeje sua Viagem</h2>
             <!-- O 'target="iframe_invisivel"' é o segredo para não sair da página -->
             <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00DgL00000OPlvZ" method="POST" target="iframe_invisivel" onsubmit="return iniciarEnvio();">
 
@@ -149,15 +166,15 @@
                 <input type="submit" name="submit" value="Enviar">
             </form>
 
-		<input type="hidden" name="debug" value="1">
-		<input type="hidden" name="debugEmail" value="josemuriloamatos@gmail.com">
+            <input type="hidden" name="debug" value="1">
+            <input type="hidden" name="debugEmail" value="josemuriloamatos@gmail.com">
         </div>
 
         <!-- Tela de Agradecimento com Michael Scott -->
         <div id="tela_agradecimento">
             <h2>Tudo certo!</h2>
-            <p>Recebemos sua solicitação. Em breve um de nossos consultores entrará em contato.</p>
-            <img src="https://media.giphy.com/media/ui1hpJSyBDWlG/giphy.gif" alt="Michael Scott Satisfeito">
+            <p>Recebemos sua solicitação com sucesso. Em breve um de nossos consultores entrará em contato.</p>
+            <img src="https://media.giphy.com/media/n4oKYFlAcvCAE/giphy.gif" alt="Michael Scott Muito Feliz">
         </div>
 
     </div>
