@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário de Viagem</title>
+    <style>
+        /* Um pouco de estilo básico para deixar o formulário mais organizado */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #0070d2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #005fb2;
+        }
+        /* Estilo da tela de agradecimento (escondida por padrão) */
+        #tela_agradecimento {
+            display: none;
+            text-align: center;
+        }
+        #tela_agradecimento img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- O formulário -->
+        <div id="area_formulario">
+            <h2>Planeje sua Viagem</h2>
+            <!-- O 'target="iframe_invisivel"' é o segredo para não sair da página -->
+            <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00DgL00000OPlvZ" method="POST" target="iframe_invisivel" onsubmit="return iniciarEnvio();">
+
+                <input type=hidden name="oid" value="00DgL00000OPlvZ">
+                <!-- A retURL continua aqui pro Salesforce não reclamar, mas o iframe vai engolir o redirecionamento -->
+                <input type=hidden name="retURL" value="http://docs.google.com/forms/d/1-q4FC5O7wlBI1RzEdM6csmNBbv4ojiqzgjt1nlJ8mt4/edit">
+
+                <div class="form-group">
+                    <label for="first_name">Nome</label>
+                    <input id="first_name" maxlength="40" name="first_name" size="20" type="text" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="last_name">Sobrenome</label>
+                    <input id="last_name" maxlength="80" name="last_name" size="20" type="text" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" maxlength="80" name="email" size="20" type="text" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Qual o principal motivo da sua viagem?</label>
+                    <select id="00NgL00004U7O7H" name="00NgL00004U7O7H" required onchange="verificarMotivo()">
+                        <option value="">-- Selecione --</option>
+                        <option value="Lazer e férias">Lazer e férias</option>
+                        <option value="Negócios e trabalho">Negócios e trabalho</option>
+                    </select>
+                </div>
+
+                <!-- Campo Empresa (Inicia escondido) -->
+                <div class="form-group" id="bloco_empresa" style="display: none;">
+                    <label for="company">Nome da Empresa</label>
+                    <input id="company" maxlength="40" name="company" size="20" type="text" />
+                </div>
+
+                <div class="form-group">
+                    <label>Destino desejado Web</label>
+                    <select id="00NgL00004U5dev" name="00NgL00004U5dev">
+                        <option value="">-- Selecione --</option>
+                        <option value="Bahia">Bahia</option>
+                        <option value="Bangkok">Bangkok</option>
+                        <option value="Berlim">Berlim</option>
+                        <option value="Buenos Aires">Buenos Aires</option>
+                        <option value="Cairo">Cairo</option>
+                        <option value="Ceará">Ceará</option>
+                        <option value="Cidade do Cabo">Cidade do Cabo</option>
+                        <option value="Cidade do México">Cidade do México</option>
+                        <option value="Madri">Madri</option>
+                        <option value="Nairóbi">Nairóbi</option>
+                        <option value="Nova Dehli">Nova Dehli</option>
+                        <option value="Nova York">Nova York</option>
+                        <option value="Orlando">Orlando</option>
+                        <option value="Pequim">Pequim</option>
+                        <option value="Roma">Roma</option>
+                        <option value="Suva">Suva</option>
+                        <option value="Sydnei">Sydnei</option>
+                        <option value="Tóquio">Tóquio</option>
+                        <option value="Toronto">Toronto</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Data de início</label>
+                    <input id="00NgL00004U27dB" name="00NgL00004U27dB" size="12" type="date" />
+                </div>
+
+                <div class="form-group">
+                    <label>Data de término</label>
+                    <input id="00NgL00004U1O0C" name="00NgL00004U1O0C" size="12" type="date" />
+                </div>
+
+                <div class="form-group">
+                    <label>Quantidade de Pessoas</label>
+                    <input id="00NgL00004DaUSu" name="00NgL00004DaUSu" size="20" type="number" />
+                </div>
+
+                <input type="hidden" id="lead_source" name="lead_source" value="Web" />
+
+                <input type="submit" name="submit" value="Enviar">
+            </form>
+
+		<input type="hidden" name="debug" value="1">
+		<input type="hidden" name="debugEmail" value="josemuriloamatos@gmail.com">
+        </div>
+
+        <!-- Tela de Agradecimento com Michael Scott -->
+        <div id="tela_agradecimento">
+            <h2>Tudo certo!</h2>
+            <p>Recebemos sua solicitação. Em breve um de nossos consultores entrará em contato.</p>
+            <img src="https://media.giphy.com/media/ui1hpJSyBDWlG/giphy.gif" alt="Michael Scott Satisfeito">
+        </div>
+
+    </div>
+
+    <!-- Iframe invisível para capturar a resposta do Salesforce sem mudar de aba -->
+    <iframe name="iframe_invisivel" id="iframe_invisivel" style="display:none;" onload="iframeCarregado()"></iframe>
+
+    <!-- Script de Lógica -->
+    <script>
+        // 1. Lógica para mostrar/esconder o campo Empresa
+        function verificarMotivo() {
+            var motivo = document.getElementById("00NgL00004U7O7H").value;
+            var blocoEmpresa = document.getElementById("bloco_empresa");
+            var inputEmpresa = document.getElementById("company");
+
+            if (motivo === "Lazer e férias") {
+                blocoEmpresa.style.display = "none";
+                inputEmpresa.value = "Cliente B2C"; // Preenche automaticamente
+                inputEmpresa.required = false;
+            } else if (motivo === "Negócios e trabalho") {
+                blocoEmpresa.style.display = "block";
+                inputEmpresa.value = ""; // Limpa para o cliente digitar
+                inputEmpresa.required = true; // Exige que a empresa seja digitada
+            } else {
+                blocoEmpresa.style.display = "none";
+                inputEmpresa.value = "";
+            }
+        }
+
+        // 2. Lógica para a tela de agradecimento na mesma página
+        var formularioEnviado = false;
+
+        function iniciarEnvio() {
+            formularioEnviado = true;
+            return true; // Permite que o formulário seja enviado para o iframe
+        }
+
+        function iframeCarregado() {
+            // Só executa a troca de tela se o formulário tiver sido disparado
+            if (formularioEnviado) {
+                document.getElementById("area_formulario").style.display = "none";
+                document.getElementById("tela_agradecimento").style.display = "block";
+                formularioEnviado = false; // Reseta a variável
+            }
+        }
+    </script>
+</body>
+</html>
