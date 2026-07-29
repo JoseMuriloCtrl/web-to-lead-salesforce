@@ -169,7 +169,8 @@
         <div id="tela_agradecimento">
             <h2>Tudo certo!</h2>
             <p>Recebemos sua solicitação com sucesso. Em breve um de nossos consultores entrará em contato.</p>
-<img src="https://i.giphy.com/media/n4oKYFlAcvCAE/giphy.gif" alt="Michael Scott Muito Feliz">        </div>
+            <img src="https://i.giphy.com/media/n4oKYFlAcvCAE/giphy.gif" referrerpolicy="no-referrer" alt="Michael Scott Muito Feliz">
+        </div>
 
     </div>
 
@@ -198,7 +199,6 @@
         }
 
         function processarEnvio() {
-            // Dispara a requisição para o Salesforce no iframe e troca a tela após 300ms
             setTimeout(function() {
                 document.getElementById("area_formulario").style.display = "none";
                 document.getElementById("tela_agradecimento").style.display = "block";
