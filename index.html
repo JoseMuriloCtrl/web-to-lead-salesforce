@@ -2,9 +2,9 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Viagem</title>
     <style>
-        /* Um pouco de estilo básico para deixar o formulário mais organizado */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
@@ -55,7 +55,6 @@
             background-color: #005fb2;
         }
         
-        /* Estilo da tela de agradecimento (escondida por padrão) */
         #tela_agradecimento {
             display: none;
             text-align: center;
@@ -83,12 +82,10 @@
         <!-- O formulário -->
         <div id="area_formulario">
             <h2 style="text-align: center; margin-bottom: 20px;">Planeje sua Viagem</h2>
-            <!-- O 'target="iframe_invisivel"' é o segredo para não sair da página -->
-            <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00DgL00000OPlvZ" method="POST" target="iframe_invisivel" onsubmit="return iniciarEnvio();">
+            <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00DgL00000OPlvZ" method="POST" target="iframe_invisivel" onsubmit="return processarEnvio();">
 
-                <input type=hidden name="oid" value="00DgL00000OPlvZ">
-                <!-- A retURL continua aqui pro Salesforce não reclamar, mas o iframe vai engolir o redirecionamento -->
-                <input type=hidden name="retURL" value="http://docs.google.com/forms/d/1-q4FC5O7wlBI1RzEdM6csmNBbv4ojiqzgjt1nlJ8mt4/edit">
+                <input type="hidden" name="oid" value="00DgL00000OPlvZ">
+                <input type="hidden" name="retURL" value="https://josemuriloctrl.github.io/web-to-lead-salesforce/">
 
                 <div class="form-group">
                     <label for="first_name">Nome</label>
@@ -114,7 +111,6 @@
                     </select>
                 </div>
 
-                <!-- Campo Empresa (Inicia escondido) -->
                 <div class="form-group" id="bloco_empresa" style="display: none;">
                     <label for="company">Nome da Empresa</label>
                     <input id="company" maxlength="40" name="company" size="20" type="text" />
@@ -162,12 +158,11 @@
                 </div>
 
                 <input type="hidden" id="lead_source" name="lead_source" value="Web" />
+                <input type="hidden" name="debug" value="1">
+                <input type="hidden" name="debugEmail" value="josemuriloamatos@gmail.com">
 
                 <input type="submit" name="submit" value="Enviar">
             </form>
-
-            <input type="hidden" name="debug" value="1">
-            <input type="hidden" name="debugEmail" value="josemuriloamatos@gmail.com">
         </div>
 
         <!-- Tela de Agradecimento com Michael Scott -->
@@ -179,12 +174,11 @@
 
     </div>
 
-    <!-- Iframe invisível para capturar a resposta do Salesforce sem mudar de aba -->
-    <iframe name="iframe_invisivel" id="iframe_invisivel" style="display:none;" onload="iframeCarregado()"></iframe>
+    <!-- Iframe invisível -->
+    <iframe name="iframe_invisivel" id="iframe_invisivel" style="display:none;"></iframe>
 
     <!-- Script de Lógica -->
     <script>
-        // 1. Lógica para mostrar/esconder o campo Empresa
         function verificarMotivo() {
             var motivo = document.getElementById("00NgL00004U7O7H").value;
             var blocoEmpresa = document.getElementById("bloco_empresa");
@@ -192,33 +186,26 @@
 
             if (motivo === "Lazer e férias") {
                 blocoEmpresa.style.display = "none";
-                inputEmpresa.value = "Cliente B2C"; // Preenche automaticamente
+                inputEmpresa.value = "Cliente B2C";
                 inputEmpresa.required = false;
             } else if (motivo === "Negócios e trabalho") {
                 blocoEmpresa.style.display = "block";
-                inputEmpresa.value = ""; // Limpa para o cliente digitar
-                inputEmpresa.required = true; // Exige que a empresa seja digitada
+                inputEmpresa.value = "";
+                inputEmpresa.required = true;
             } else {
                 blocoEmpresa.style.display = "none";
                 inputEmpresa.value = "";
             }
         }
 
-        // 2. Lógica para a tela de agradecimento na mesma página
-        var formularioEnviado = false;
-
-        function iniciarEnvio() {
-            formularioEnviado = true;
-            return true; // Permite que o formulário seja enviado para o iframe
-        }
-
-        function iframeCarregado() {
-            // Só executa a troca de tela se o formulário tiver sido disparado
-            if (formularioEnviado) {
+        function processarEnvio() {
+            // Dispara a requisição para o Salesforce no iframe e troca a tela após 300ms
+            setTimeout(function() {
                 document.getElementById("area_formulario").style.display = "none";
                 document.getElementById("tela_agradecimento").style.display = "block";
-                formularioEnviado = false; // Reseta a variável
-            }
+            }, 300);
+            
+            return true;
         }
     </script>
 </body>
