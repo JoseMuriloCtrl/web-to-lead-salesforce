@@ -191,7 +191,7 @@
 
             if (motivo === "Lazer e férias") {
                 blocoEmpresa.style.display = "none";
-                inputEmpresa.value = ""; 
+                inputEmpresa.value = "Cliente B2C"; 
                 inputEmpresa.required = false;
             } else if (motivo === "Negócios e trabalho") {
                 blocoEmpresa.style.display = "block";
@@ -209,14 +209,8 @@
                 document.getElementById("tela_agradecimento").style.display = "block";
             }, 300);
 
-            // Preenche o campo empresa com Nome + Sobrenome se estiver vazio
-            // Isso evita erro de validação padrão de Leads no Salesforce
-            var inputEmpresa = document.getElementById("company");
-            if (inputEmpresa.value.trim() === "") {
-                var nome = document.getElementById("first_name").value;
-                var sobrenome = document.getElementById("last_name").value;
-                inputEmpresa.value = nome + " " + sobrenome;
-            }
+            // A função de preenchimento automático do nome foi removida 
+            // para evitar o problema de duplicação evidenciado na sua imagem.
 
             return true;
         }
